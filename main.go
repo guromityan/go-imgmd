@@ -16,12 +16,16 @@ var (
 	app = kingpin.New("imgmd", "Convert image to Markdown.")
 
 	target = app.Arg("target", "Target directory containing images.").Required().ExistingDir()
-	output = app.Flag("output", "Markdown file name to output.").Short('o').Default("output.md").String()
+	output = app.Flag("output", "Markdown file name to output.").Short('o').String()
 )
 
 func main() {
 	app.Version(version)
 	kingpin.MustParse(app.Parse(os.Args[1:]))
+
+	if *output == "" {
+		*output = *target + ".md"
+	}
 
 	stmts, err := lib.Dirwalk(*target)
 	if err != nil {

@@ -29,7 +29,7 @@ func Dirwalk(dir string) ([]string, error) {
 			stmts = append(stmts, stmt)
 		} else {
 			if ext := filepath.Ext(path); isImg(ext) {
-				stmt := fmt.Sprintf("![figure%v](%v)\n", count, path)
+				stmt := fmt.Sprintf("![figure%v](%v)\n\n\n", count, path)
 				stmts = append(stmts, stmt)
 				count++
 			}
